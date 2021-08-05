@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class SelectedMonthView extends JPanel implements CalendarView {
 
     private LocalDate visibleDate;
+    private JButton[][] daysHolder;
     private final CalendarViewModel model;
 
     public SelectedMonthView(CalendarViewModel m) {
@@ -60,7 +61,7 @@ public class SelectedMonthView extends JPanel implements CalendarView {
                 });
 
         // Creating and populating the calendar with each date as a button
-        JButton[][] daysHolder = new JButton[6][7];
+       this.daysHolder = new JButton[6][7];
         LocalDate firstDayOfWeek = visibleDate.withDayOfMonth(1);
         int day = 1;
         for (int i = 0; i < 6; i++) {
@@ -118,5 +119,84 @@ public class SelectedMonthView extends JPanel implements CalendarView {
     public void previous() {
         visibleDate = visibleDate.plusMonths(-1);
         this.display();
+    }
+    
+    public void toggleColorDark()
+    {
+    	for (int i = 0; i < 6; i++) 
+    	{
+            for (int j = 0; j < 7; j++) 
+            {
+            	JButton dateButton = this.daysHolder[i][j];
+            	if (dateButton.isEnabled())
+            	{
+            		LocalDate buttonRepresentedDate = visibleDate.withDayOfMonth(Integer.parseInt(dateButton.getText()));
+            		if (buttonRepresentedDate.equals(LocalDate.now())) { // today
+                        dateButton.setBackground(new Color(122, 138, 153));
+                        dateButton.setForeground(Color.WHITE);
+                    } else if (buttonRepresentedDate.equals(model.getSelectedDate())) // selected date
+                        dateButton.setBackground(new Color(198, 217, 234));
+                    else
+                        dateButton.setBackground(Color.BLACK);
+            			dateButton.setForeground(Color.WHITE);
+            		
+            	
+            	}
+            	
+            }
+    	}
+    }
+    
+    public void toggleColorLight()
+    {
+    	for (int i = 0; i < 6; i++) 
+    	{
+            for (int j = 0; j < 7; j++) 
+            {
+            	JButton dateButton = this.daysHolder[i][j];
+            	if (dateButton.isEnabled())
+            	{
+            		LocalDate buttonRepresentedDate = visibleDate.withDayOfMonth(Integer.parseInt(dateButton.getText()));
+            		if (buttonRepresentedDate.equals(LocalDate.now())) { // today
+                        dateButton.setBackground(new Color(122, 138, 153));
+                        dateButton.setForeground(Color.WHITE);
+                    } else if (buttonRepresentedDate.equals(model.getSelectedDate())) // selected date
+                        dateButton.setBackground(new Color(198, 217, 234));
+                    else
+                        dateButton.setBackground(Color.WHITE);
+            			dateButton.setForeground(Color.BLACK);
+            		
+            	
+            	}
+            	
+            }
+    	}
+
+    }
+    
+    public void toggleColor(ButtonColor bc)
+    {
+    	for (int i = 0; i < 6; i++) 
+    	{
+            for (int j = 0; j < 7; j++) 
+            {
+            	JButton dateButton = this.daysHolder[i][j];
+            	if (dateButton.isEnabled())
+            	{
+            		LocalDate buttonRepresentedDate = visibleDate.withDayOfMonth(Integer.parseInt(dateButton.getText()));
+            		if (buttonRepresentedDate.equals(LocalDate.now())) { // today
+                        dateButton.setBackground(new Color(122, 138, 153));
+                        dateButton.setForeground(Color.WHITE);
+                    } 
+            		else if (buttonRepresentedDate.equals(model.getSelectedDate())) // selected date
+                        dateButton.setBackground(new Color(198, 217, 234));
+                    else
+                        bc.changeColor(dateButton);
+            		
+            	
+            	}
+            	
+            }
+    	}
     }
 }

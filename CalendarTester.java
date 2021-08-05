@@ -78,6 +78,13 @@ public class CalendarTester {
         c.gridy++;
         c.gridwidth = 3;
         currentViewNav.add(createButton, c);
+        
+        //Buttons for dark mode
+        JPanel toggle = new JPanel();
+        final JButton darkButton = new JButton("Dark");
+        final JButton lightButton = new JButton("Light");
+        toggle.add(darkButton);
+        toggle.add(lightButton);
 
         // Right half has a JPanel for the top buttons (top-right panel)
         JPanel changeViewNav = new JPanel();
@@ -107,6 +114,12 @@ public class CalendarTester {
                 ((CalendarView) rightView).next();
             }
         });
+        
+        //Dark action listener
+        darkButton.addActionListener(e -> {selectedMonthView.toggleColor(new DarkColor());});
+        
+      //Light action listener
+        lightButton.addActionListener(e -> {selectedMonthView.toggleColor(new LightColor());});
 
         // Checks whether a CalendarView is in the right side to determine
         // whether to disable the left/right buttons
@@ -198,6 +211,7 @@ public class CalendarTester {
         rightControls.add(dayView, BorderLayout.CENTER);
 
         leftControls.add(selectedMonthView, BorderLayout.CENTER);
+        leftControls.add(toggle, BorderLayout.SOUTH);
 
         // Adding left and right halves to the frame
         frame.add(leftControls, BorderLayout.WEST);
