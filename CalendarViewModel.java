@@ -1,3 +1,9 @@
+/**
+* Project Solution
+* @author Xuhui Lin, Yashna Peerthum, and Frederick Javier
+* @version 1.0 8/4/21
+*/
+
 package calendar;
 
 import javax.swing.event.ChangeEvent;
